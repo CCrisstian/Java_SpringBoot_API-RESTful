@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("http://localhost:5173")
 public class ProductController {
 
     final private ProductService service;
@@ -69,4 +70,5 @@ public class ProductController {
 
         return ResponseEntity.notFound().build();
     }
+
 }
