@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin({"http://localhost:5173", "http://localhost:4200"})
 public class ProductController {
 
     final private ProductService service;
