@@ -50,3 +50,23 @@ spring.jpa.show-sql=true
 - Configuración de **JPA** (**Java Persistence API**)
   - `spring.jpa.show-sql=true`
     - Hace que **Spring Boot** muestre las consultas **SQL** ejecutadas en la consola, lo cual es útil para depuración.
+
+<h2>Application.java</h2>
+<p>Esta es la clase principal de la aplicación <b>Spring Boot</b>. Su función es iniciar la aplicación y configurar automáticamente todos los componentes de <b>Spring</b>.</p>
+
+```java
+package com.ccristian.curso.java.springboot.backend;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+```
+
