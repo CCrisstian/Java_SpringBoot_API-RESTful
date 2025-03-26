@@ -55,7 +55,7 @@ spring.jpa.show-sql=true
 <p>Esta es la clase principal de la aplicación <b>Spring Boot</b>. Su función es iniciar la aplicación y configurar automáticamente todos los componentes de <b>Spring</b>.</p>
 
 <h1 align="center">'Product' y 'ProductRepository'</h1>
-<h2>Product</h2>
+<h2>Product - Entidad JPA en Spring Boot</h2>
 <p>La clase <b>Product</b> representa la entidad de un producto dentro del sistema. Está mapeada a una tabla en la <b>Base de Datos</b> y define los atributos básicos de un producto</p>
 
 ```java
@@ -86,7 +86,7 @@ public class Product {
 	- Indica que el valor del campo **id** se generará automáticamente por la **Base de Datos** mediante una estrategia de identidad (IDENTITY).
 	- En bases de datos como **MySQL**, esto significa que el **id** se generará como un ***campo autoincremental***.
 
-<h2>ProductRepository</h2>
+<h2>ProductRepository - Repositorio JPA en Spring Boot</h2>
 <p>Esta interfaz define el acceso a la <b>Base de Datos</b> para la entidad <b>Product</b>, utilizando el mecanismo de persistencia de <b>Spring Data JPA</b>.</p>
 
 ```java
@@ -105,3 +105,97 @@ public interface ProductRepository extends CrudRepository<Product, Long> {}
 	- `deleteById(Long id)`: **Elimina** un producto por su **id**.
 	- `existsById(Long id)`: **Verifica** si un producto con el **id** dado ***existe***.
  
+<h1 align="center">'ProductService' y 'ProductServiceImpl' - Capa de servicio en Spring Boot</h1>
+<p>La <b>capa de servicio</b> (Service Layer) en una aplicación <b>Spring Boot</b> actúa como intermediaria entre el <b>controlador</b> (<b>Controller</b>) y el <b>repositorio</b> (<b>Repository</b>). Su propósito es encapsular la lógica de negocio y la gestión de transacciones.</p>
+
+<h2>ProductService</h2>
+<p>Esta interfaz define las operaciones de negocio relacionadas con los productos.</p>
+
+```java
+public interface ProductService {
+    List<Product> findAll();
+    Optional<Product> findById(Long id);
+    Product save(Product product);
+    Optional<Product> deleteById(Long id);
+}
+```
+
+- Métodos:
+	- `findAll()`: **Obtiene** una **lista** con todos los productos.
+ 	- `findById(Long id)`: **Busca** un producto por su **id**.
+  	- `save(Product product)`: **Guarda** o **actualiza** un producto.
+	- `deleteById(Long id)`: **Elimina** un producto por su **id** y devuelve el producto eliminado si existía.
+
+<h2>ProductServiceImpl</h2>
+<p>Esta clase implementa <b>ProductService</b> y delega las operaciones al <b>ProductRepository</b></p>
+
+```java
+@Service
+public class ProductServiceImpl implements ProductService {
+```
+
+- `@Service`: Marca la clase como un componente de servicio de **Spring**, lo que permite que **Spring** la detecte y la gestione como un bean dentro de su contexto de aplicación.
+
+```java
+    final private ProductRepository repository;
+
+    public ProductServiceImpl(ProductRepository repository) {
+        this.repository = repository;
+    }
+```
+
+- Se inyecta una instancia de `ProductRepository` a través del **constructor**, aplicando ***inyección de dependencias***.
+
+```java
+    @Transactional(readOnly = true)
+    @Override
+    public List<Product> findAll() {
+        return (List<Product>) repository.findAll();
+    }
+```
+
+- `@Transactional(readOnly = true)`: Indica que esta operación ***solo consulta datos y no los modifica***, lo que **mejora el rendimiento**.
+- Convierte el resultado de `repository.findAll()` en una **lista** de productos.
+
+```java
+    @Transactional(readOnly = true)
+    @Override
+    public Optional<Product> findById(Long id) {
+        return repository.findById(id);
+    }
+```
+
+- Retorna un `Optional<Product>`, lo que ayuda a manejar el caso en que el producto no exista.
+- También es una consulta de solo lectura.
+
+```java
+    @Transactional
+    @Override
+    public Product save(Product product) {
+        return repository.save(product);
+    }
+```
+
+- `@Transactional`: Indica que esta operación ***puede modificar** la **Base de Datos** y, ***si ocurre un error, la transacción se revierte***.
+- **Guarda** o **actualiza** un producto.
+
+```java
+    @Transactional
+    @Override
+    public Optional<Product> deleteById(Long id) {
+
+        Optional<Product> productOptional = repository.findById(id);
+
+        if (productOptional.isPresent()) {
+            repository.deleteById(id);
+            return productOptional;
+        }
+
+        return Optional.empty();
+    }
+```
+
+- Primero **busca** el producto antes de **eliminarlo** para devolverlo como Optional<Product> en caso de éxito.
+- Si el producto no existe, devuelve un `Optional.empty()`.
+- `@Transactional` asegura que la eliminación sea parte de una transacción.
+
