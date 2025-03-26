@@ -54,19 +54,36 @@ spring.jpa.show-sql=true
 <h2>Application.java</h2>
 <p>Esta es la clase principal de la aplicación <b>Spring Boot</b>. Su función es iniciar la aplicación y configurar automáticamente todos los componentes de <b>Spring</b>.</p>
 
+<h1 align="center">'Product' y 'ProductRepository'</h1>
+<h2>Product</h2>
+<p>La clase <b>Product</b> representa la entidad de un producto dentro del sistema. Está mapeada a una tabla en la <b>Base de Datos</b> y define los atributos básicos de un producto</p>
+
 ```java
-package com.ccristian.curso.java.springboot.backend;
+@Entity
+@Table(name = "products")
+public class Product {
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-@SpringBootApplication
-public class Application {
-
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
-
+    private String name;
+    private String description;
+    private Long price;
+    ...
 }
 ```
 
+- `@Entity`
+	- Indica que esta clase es una entidad **JPA**, lo que significa que será administrada por el framework de persistencia de Java (**Hibernate** en el caso de Spring Boot).
+	- Se traduce en una ***tabla*** en la **Base de Datos**.
+- `@Table(name = "products")`
+	- Especifica el nombre de la tabla en la **Base de Datos** a la que se ***mapeará*** esta entidad.
+	- Si no se especifica, **Hibernate** asignará un nombre basado en el nombre de la clase.
+- `@Id`
+	- Declara que el campo **id** es la ***clave primaria*** de la entidad.
+- `@GeneratedValue(strategy = GenerationType.IDENTITY)`
+	- Indica que el valor del campo **id** se generará automáticamente por la **Base de Datos** mediante una estrategia de identidad (IDENTITY).
+	- En bases de datos como **MySQL**, esto significa que el **id** se generará como un ***campo autoincremental***.
+
+<h2>ProductRepository</h2>
