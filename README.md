@@ -87,3 +87,21 @@ public class Product {
 	- En bases de datos como **MySQL**, esto significa que el **id** se generará como un ***campo autoincremental***.
 
 <h2>ProductRepository</h2>
+<p>Esta interfaz define el acceso a la <b>Base de Datos</b> para la entidad <b>Product</b>, utilizando el mecanismo de persistencia de <b>Spring Data JPA</b>.</p>
+
+```java
+public interface ProductRepository extends CrudRepository<Product, Long> {}
+```
+
+- `ProductRepository extends CrudRepository<Product, Long>`
+	- Extiende de `CrudRepository`, la cual proporciona operaciones **CRUD** (**Create**, **Read**, **Update**, **Delete**) para la entidad **Product**.
+ 	- `Product`: Es la entidad que administrará el repositorio.
+  	- `Long`: Es el tipo de dato del identificador (**id**) de la entidad `Product`.
+
+- Al heredadr de `CrudRepository` **Spring Data JPA** automáticamente genera la implementación de los siguientes métodos:
+	- `save(Product product)`: **Guarda** o **actualiza** un producto en la **Base de Datos**.
+	- `findById(Long id)`: **Busca** un producto por su **id**.
+	- `findAll()`: **Obtiene todos** los productos.
+	- `deleteById(Long id)`: **Elimina** un producto por su **id**.
+	- `existsById(Long id)`: **Verifica** si un producto con el **id** dado ***existe***.
+ 
