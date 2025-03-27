@@ -226,9 +226,7 @@ public class ProductController {
 
  <h2>Métodos en la Clase 'ProductController'</h2>
 
-<h3>list()</h3>
-
-Este método maneja las **solicitudes HTTP GET** dirigidas al endpoint raíz del controlador. Su propósito es devolver una lista de todos los productos almacenados en la **Base de Datos** en formato **JSON**.
+<h3>'list()'</h3>
 
 ```java
 @GetMapping
@@ -246,4 +244,62 @@ public ResponseEntity<List<Product>> list() {
  	- `service.findAll()` → Llama al servicio `ProductService`, que a su vez usa `ProductRepository` para obtener todos los productos de la **Base de Datos**.
  	- `ResponseEntity.ok(...)` → Devuelve la respuesta con un código **HTTP 200 OK**, indicando que ***la solicitud fue exitosa***.
 
-<h3>details(@PathVariable Long id)</h3>
+<h3>'details(@PathVariable Long id)'</h3>
+
+```java
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> details(@PathVariable Long id) {
+        Optional<Product> optionalProduct = service.findById(id);
+        if (optionalProduct.isPresent()) {
+            return ResponseEntity.ok(optionalProduct.orElseThrow());
+        }
+        return ResponseEntity.notFound().build();
+    }
+```
+- `@GetMapping("/{id}")`: Indica que este método manejará las **peticiones GET** con un **parámetro {id}** en la **URL**.
+- `@PathVariable Long id`: Extrae el valor del **{id}** de la **URL** y lo convierte a Long.
+- `findById(id)`: Busca el producto en la **Base de Datos** y devuelve un `Optional<Product>` ***porque el producto puede existir o no***.
+- Si el producto existe, se devuelve con `ResponseEntity.ok()`.
+
+<h3>'create(@RequestBody Product product)'</h3>
+
+```java
+    @PostMapping
+    public ResponseEntity<Product> create(@RequestBody Product product) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(product));
+    }
+```
+
+- `@PostMapping`: Indica que este método manejará las **peticiones HTTP POST** para **crear** un nuevo producto.
+- `@RequestBody Product product`: Convierte el **JSON** recibido en el cuerpo de la solicitud en un objeto Product.
+- `service.save(product)`: Guarda el producto en la **Base de Datos** utilizando el servicio `ProductService`.
+- `ResponseEntity.status(HttpStatus.CREATED).body(productGuardado)`: Devuelve el producto creado con el código de estado **201 Created**.
+
+<h3>'update(@RequestBody Product product, @PathVariable Long id)'</h3>
+
+```java
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> update(@RequestBody Product product, @PathVariable Long id) {
+
+        Optional<Product> productOptional = service.findById(id);
+
+        if (productOptional.isPresent()) {
+            productOptional.get().setName(product.getName());
+            productOptional.get().setPrice(product.getPrice());
+            productOptional.get().setDescription(product.getDescription());
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.save(productOptional.get()));
+        }
+        return ResponseEntity.notFound().build();
+    }
+```
+- `@PutMapping("/{id}")`: Indica que este método manejará las **peticiones PUT** para **actualizar** un producto existente.
+- `{id}` en la URL representa el **ID** del producto que se actualizará.
+- `@RequestBody Product product`: Convierte el **JSON** recibido en el cuerpo de la solicitud en un objeto Product.
+- `@PathVariable Long id`: Extrae el valor del **ID** desde la **URL** y lo pasa como parámetro al método.
+- `service.findById(id)`: Busca el producto en la **Base de Datos** utilizando su **ID**.
+- Verificación `if (productOptional.isPresent())`
+	- Si el producto existe, se actualizan sus atributos y se guarda en la **Base de Datos**.
+	- Si no existe, se devuelve un código 404 Not Found.
+- `ResponseEntity.status(HttpStatus.OK).body(service.save(productOptional.get()))`: Guarda el producto actualizado en la **Base de Datos**.
+- Devuelve 200 OK, ya que se ha realizado una actualización y no una creación.
