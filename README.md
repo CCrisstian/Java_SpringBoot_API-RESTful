@@ -1,5 +1,21 @@
 <h1 align="center">Backend API RESTful con Java + Spring Boot</h1>
-<p></p>
+<p>Este proyecto es una <b>API REST</b> desarrollada con <b>Spring Boot</b> que proporciona servicios para la gestión de productos. Está diseñada para interactuar con una <b>Base de Datos SQL</b> y facilitar la comunicación con clientes externos a través de <b>JSON</b>.</p>
+
+<h2><ins>Descripción del Proyecto</ins></h2>
+<p>El objetivo principal de este <b>backend</b> es ofrecer una <b>API</b> eficiente y escalable que permita realizar operaciones <b>CRUD</b> (Crear, Leer, Actualizar y Eliminar) sobre productos. Se ha implementado con buenas prácticas como el uso de Servicios, Repositorios e Inyección de Dependencias, asegurando un código limpio y mantenible.</p>
+
+<h2><ins>Características Principales del Proyecto</ins></h2>
+
+- Operaciones **CRUD** completas para la gestión de productos.
+- Desarrollo con **Spring Boot** para una configuración rápida y eficiente.
+- Persistencia de datos mediante **Spring Data JPA** y **Base de Datos SQL**.
+- **API RESTful** con endpoints bien estructurados.
+- Soporte para **CORS** para permitir conexiones desde clientes en **React** (http://localhost:5173) y **Angular** (http://localhost:4200).
+- Gestión de excepciones y respuestas **HTTP** adecuadas.
+- Uso de **Optional** en consultas para un manejo seguro de valores nulos.
+- Integración con **Postman** o herramientas similares para pruebas de **API**.
+
+<h2><ins>Imagenes del Proyecto</ins></h2>
 
 <h1 align="center">pom.xml (dependencies)</h1>
 
