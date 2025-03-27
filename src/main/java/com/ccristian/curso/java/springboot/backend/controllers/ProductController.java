@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin({"http://localhost:5173", "http://localhost:4200"})
+@CrossOrigin({"http://localhost:5173", "http://localhost:4200"}) /*React (puerto 5173) o Angular (puerto 4200).*/
 public class ProductController {
 
     final private ProductService service;
@@ -47,13 +47,11 @@ public class ProductController {
         Optional<Product> productOptional = service.findById(id);
 
         if (productOptional.isPresent()) {
-            Product productDB = productOptional.orElseThrow();
+            productOptional.get().setName(product.getName());
+            productOptional.get().setPrice(product.getPrice());
+            productOptional.get().setDescription(product.getDescription());
 
-            productDB.setName(product.getName());
-            productDB.setPrice(product.getPrice());
-            productDB.setDescription(product.getDescription());
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.save(productDB));
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.save(productOptional.get()));
         }
         return ResponseEntity.notFound().build();
     }
