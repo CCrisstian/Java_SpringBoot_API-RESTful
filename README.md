@@ -17,6 +17,21 @@
 
 <h2><ins>Imagenes del Proyecto</ins></h2>
 
+![Postman-GET](https://github.com/user-attachments/assets/afc8d66d-a248-4765-a926-1343dad56ab4)
+![Postman_Preview-GET](https://github.com/user-attachments/assets/5bfa398c-3204-41d5-b789-be8e695a6b2f)
+![Backend-GET](https://github.com/user-attachments/assets/472000cf-2048-4690-8be1-1d98cd6a6002)
+![Postman-Id-GET](https://github.com/user-attachments/assets/e05e3e79-d22d-401c-8d0a-1a4afe3dcb2e)
+![Backend-Id-GET](https://github.com/user-attachments/assets/bf55a6b4-3f1b-4559-aa81-62ca676e115b)
+![Postman_Pre_POST](https://github.com/user-attachments/assets/cc7864a0-96d6-45ec-8e1c-f59063c7a5bc)
+![Postman_POST](https://github.com/user-attachments/assets/118b43c8-b7c9-43af-af7e-970ab2602d6c)
+![Backend-POST](https://github.com/user-attachments/assets/21065b19-3ffa-48e1-8fd5-c2a4f4a1d70d)
+![Postman_Pre_PUT](https://github.com/user-attachments/assets/97d2dab8-203d-470e-9a7e-dd12a1cf5047)
+![Postman_PUT](https://github.com/user-attachments/assets/d9ff2e23-8e8d-4c2e-9ebd-70e068a4633b)
+![Backend-PUT](https://github.com/user-attachments/assets/b8ae5b7b-f2f4-4a98-afed-9f8b029dda8a)
+![Postman_DELETE](https://github.com/user-attachments/assets/aafa70ab-27c8-4ca2-873e-5fc96da934ec)
+![Backend-DELETE](https://github.com/user-attachments/assets/03e7aca3-3a86-4ddd-8fde-6e5436d5b46c)
+
+
 <h1 align="center">pom.xml (dependencies)</h1>
 
 - `spring-boot-starter-data-jpa`
