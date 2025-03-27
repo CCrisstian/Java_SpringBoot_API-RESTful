@@ -10,7 +10,7 @@
 - Desarrollo con **Spring Boot** para una configuración rápida y eficiente.
 - Persistencia de datos mediante **Spring Data JPA** y **Base de Datos SQL**.
 - **API RESTful** con endpoints bien estructurados.
-- Soporte para **CORS** para permitir conexiones desde clientes en **React** (http://localhost:5173) y **Angular** (http://localhost:4200).
+- Soporte para **CORS** para permitir conexiones desde clientes en **React** (http://localhost:5173), **Angular** (http://localhost:4200) y **Postman** (http://localhost:8080/)
 - Gestión de excepciones y respuestas **HTTP** adecuadas.
 - Uso de **Optional** en consultas para un manejo seguro de valores nulos.
 - Integración con **Postman** o herramientas similares para pruebas de **API**.
