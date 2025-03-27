@@ -199,3 +199,51 @@ public class ProductServiceImpl implements ProductService {
 - Si el producto no existe, devuelve un `Optional.empty()`.
 - `@Transactional` asegura que la eliminación sea parte de una transacción.
 
+<h1 align="center">ProductController - Controlador (Controller)</h1>
+<p>La clase <b>ProductController</b> en <b>Spring Boot</b> actúa como el punto de entrada para gestionar las <b>solicitudes HTTP</b> relacionadas con los productos. Sus anotaciones permiten definir su comportamiento y configuración.</p>
+
+<h2>Anotaciones en la Clase 'ProductController'</h2>
+
+```java
+@RestController
+@CrossOrigin({"http://localhost:5173", "http://localhost:4200"})
+public class ProductController {
+}
+```
+
+- `@RestController`
+	- Es una combinación de dos anotaciones:
+		- `@Controller`: Indica que esta clase es un controlador en **Spring MVC**.
+		- `@ResponseBody`: Esta anotación se aplica de forma implícita a todos los métodos del controlador, garantizando que la respuesta de cada endpoint se ***convierta automáticamente*** en **JSON** o **XML**, según el **Content-Type** de la solicitud.
+		- **Función**: Define que esta clase manejará **solicitudes HTTP** y devolverá respuestas en formato **JSON** (útil para una **API REST**).
+- ¿Por qué `@ResponseBody` es importante en este Proyecto?
+	- Permite que el ***backend*** **Spring Boot** envíe respuestas **JSON** a clientes externos (**React**, **Angular**, **apps móviles**, etc.).
+	- Facilita la integración del ***backend*** con cualquier ***frontend*** sin depender del formato **SQL** de la **Base de Datos**.
+	- Mejora la escalabilidad y compatibilidad de la **API REST**.
+- `@CrossOrigin({"http://localhost:5173", "http://localhost:4200"})`
+	- Permite que el ***frontend*** acceda a esta **API** desde dominios distintos al del ***backend***.
+	- Evita errores de **CORS** (***Cross-Origin Resource Sharing***) cuando se hacen ***peticiones desde un cliente externo***, como una aplicación en **React** (puerto 5173) o **Angular** (puerto 4200).
+
+ <h2>Métodos en la Clase 'ProductController'</h2>
+
+<h3>list()</h3>
+
+Este método maneja las **solicitudes HTTP GET** dirigidas al endpoint raíz del controlador. Su propósito es devolver una lista de todos los productos almacenados en la **Base de Datos** en formato **JSON**.
+
+```java
+@GetMapping
+public ResponseEntity<List<Product>> list() {
+    return ResponseEntity.ok(service.findAll());
+}
+```
+- `@GetMapping`: Indica que este método responderá a solicitudes **HTTP GET**.
+	- Como no se especifica una ruta, hereda la ruta base del controlador.
+- `ResponseEntity<List<Product>>`
+	- `ResponseEntity` es una clase de **Spring** que representa una respuesta **HTTP completa**, incluyendo el **código de estado** y el **cuerpo de la respuesta**.
+	- `List<Product>` indica que el **cuerpo de la respuesta** será una lista de productos en formato **JSON**.
+	- Ventaja de usar `ResponseEntity`: Permite mayor control sobre la **respuesta HTTP** (códigos de estado, cabeceras, etc.).
+ - `ResponseEntity.ok(service.findAll())`
+ 	- `service.findAll()` → Llama al servicio `ProductService`, que a su vez usa `ProductRepository` para obtener todos los productos de la **Base de Datos**.
+ 	- `ResponseEntity.ok(...)` → Devuelve la respuesta con un código **HTTP 200 OK**, indicando que ***la solicitud fue exitosa***.
+
+<h3>details(@PathVariable Long id)</h3>
