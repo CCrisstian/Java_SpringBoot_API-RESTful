@@ -303,3 +303,28 @@ public ResponseEntity<List<Product>> list() {
 	- Si no existe, se devuelve un código 404 Not Found.
 - `ResponseEntity.status(HttpStatus.OK).body(service.save(productOptional.get()))`: Guarda el producto actualizado en la **Base de Datos**.
 - Devuelve 200 OK, ya que se ha realizado una actualización y no una creación.
+
+<h3>'delete(@PathVariable Long id)'</h3>
+
+```java
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Product> delete(@PathVariable Long id) {
+
+        Optional<Product> optionalProduct = service.deleteById(id);
+
+        if (optionalProduct.isPresent()) {
+            Product productDeleted = optionalProduct.orElseThrow();
+            return ResponseEntity.status(HttpStatus.OK).body(productDeleted);
+        }
+        return ResponseEntity.notFound().build();
+    }
+```
+- `@DeleteMapping("/{id}")`: Indica que este método manejará las **peticiones DELETE** para **eliminar** un producto existente.
+- `{id}` en la **URL** representa el **ID** del producto que se eliminará.
+- `@PathVariable Long id`: Extrae el valor del **ID** desde la **URL** y lo pasa como parámetro al método.
+- `service.deleteById(id)`: Busca el producto en la base de datos y lo elimina si existe.
+- Devuelve un `Optional<Product>` con el producto eliminado o un `Optional.empty()` si no se encontró.
+- Verificación `if (optionalProduct.isPresent())`
+	- Si el producto existe y fue eliminado, se devuelve en la respuesta.
+	- Si no existe, se devuelve un código 404 Not Found.
+- `ResponseEntity.status(HttpStatus.OK).body(productDeleted)`: Devuelve el producto eliminado y el código de estado 200 OK.
