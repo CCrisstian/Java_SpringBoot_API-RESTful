@@ -10,11 +10,12 @@
 - Desarrollo con **Spring Boot** para una configuración rápida y eficiente.
 - Persistencia de datos mediante **Spring Data JPA** y **Base de Datos SQL**.
 - **API RESTful** con endpoints bien estructurados.
-- **URL** del proyecto **http://localhost:8080**
-- Soporte para **CORS** para permitir conexiones desde clientes en:
-	- <img src="https://skillicons.dev/icons?i=react&perline=14" /> **React**
-	- <img src="https://skillicons.dev/icons?i=angular&perline=14" /> **Angular**
-	- <img src="https://skillicons.dev/icons?i=postman&perline=14" /> **Postman**
+- **URL** base del **Backend** **http://localhost:8080**
+- Soporte para **CORS** para permitir conexiones desde clientes:
+	- <img src="https://skillicons.dev/icons?i=react&perline=14" /> **React**	**(http://localhost:5173)**
+	- <img src="https://skillicons.dev/icons?i=angular&perline=14" /> **Angular**	**(http://localhost:4200)**
+	- <img src="https://skillicons.dev/icons?i=postman&perline=14" /> **Postman**	**(http://localhost:8080)**
+ 	- Esto permite que el **Backend** acepte solicitudes desde clientes **Frontend** que se ejecuten en esos puertos durante el desarrollo. 
 - Gestión de excepciones y respuestas **HTTP** adecuadas.
 - Uso de **Optional** en consultas para un manejo seguro de valores nulos.
 - Integración con **Postman** o herramientas similares para pruebas de **API**.
