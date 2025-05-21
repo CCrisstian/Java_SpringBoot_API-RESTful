@@ -46,6 +46,33 @@
 ![Postman-DELETE](https://github.com/user-attachments/assets/aafa70ab-27c8-4ca2-873e-5fc96da934ec)
 ![Backend-DELETE](https://github.com/user-attachments/assets/03e7aca3-3a86-4ddd-8fde-6e5436d5b46c)
 
+<h1 align="center">Base de Datos SQL</h1>
+<h2>Base de Datos</h2>
+<p>Este proyecto utiliza una base de datos llamada <strong>db_springboot_backend</strong>, diseñada para gestionar productos en una aplicación desarrollada con Spring Boot.</p>
+
+<h3>Script para crear la base de datos</h3>
+
+```sql
+CREATE DATABASE db_springboot_backend
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_0900_ai_ci;
+```
+
+<h2>Tabla - Products</h2> 
+<p>La tabla <strong>products</strong> almacena información básica sobre los productos disponibles en la aplicación. Contiene un identificador único, nombre, descripción y precio del producto.</p> 
+
+<h3>Script para crear la tabla products</h3>
+
+```sql
+CREATE TABLE `products` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `price` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+```
+
 <h1 align="center">pom.xml (dependencies)</h1>
 
 - `spring-boot-starter-data-jpa`
